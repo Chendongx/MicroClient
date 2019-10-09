@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>review</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="js/review/question.js"></script>
+</head>
+<body>
+<div id="operation">
+    <button type="button" data-method="search" class="layui-btn layui-btn-normal"><i  class="layui-icon layui-icon-search" ></i></button>
+    <button type="button" data-method="post" class="layui-btn layui-btn-normal"><i  class="layui-icon layui-icon-add-1" ></i></button>
+    <button type="button" data-method="put" class="layui-btn layui-btn-normal"><i  class="layui-icon layui-icon-edit" ></i></button>
+    <button type="button" data-method="delete" class="layui-btn layui-btn-normal"><i  class="layui-icon layui-icon-delete" ></i></button>
+    <button type="button" data-method="index" class="layui-btn layui-btn-normal"><i  class="layui-icon layui-icon-home" ></i></button>
+    <form class="layui-form" lay-filter="search" action="" style="float: left">
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <label class="layui-form-label">问题类型</label>
+                <div class="layui-input-inline">
+                    <select name="questionType" lay-verify="required" lay-search="">
+                        <option value="">直接选择或搜索选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline ">
+                <label class="layui-form-label">全部</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" checked="" name="isAll" lay-skin="switch" lay-filter="switchAll"
+                           lay-text="ON|OFF" value="true">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend><h2>加油站 <span style="font-size: 21px;"> 不满于现状，就是最大的动力。</span></h2></legend>
+    <fieldset class="layui-elem-field layui-field-box">
+        <legend>习惯的形成</legend>
+        <p>第一阶段：1到7天。此阶段的特征是“刻意，不自然”。你需要刻意提醒自己改变，而你也会觉得有些不自然，不舒服。</p>
+        <p>第二阶段：7到21天。不要放弃第一阶段的努力，继续重复，此阶段的特征是“刻意，自然”。你已经觉得比较自然、比较舒服了，但是一不留意，你还会回到从前。因此，你还需要刻意提醒自己改变。</p>
+        <p>第三阶段：21到90天。此阶段的特征是“不经意，自然”，其实这就是习惯，这一阶段被称为“习惯的稳定期”。一旦跨入此阶段，你就完成了自我改造。这项习惯就已经成为你生命中的一个有机组成部分，它会自然而然地不停为你“效劳”。</p>
+    </fieldset>
+    <fieldset class="layui-elem-field layui-field-box">
+        <legend>一万个小时</legend>
+        <p>热身：100h -- 业余玩家：1000h -- 资深玩家：3000h -- 专家：7000h -- 大师：10000h </p>
+        <p>前期：简单重复重积累。中期：只有当刻意练习不再能够帮助你和周围的人拉开差距的时候，你才能说刻意练习不重要。后期：内涵越宽，外延就越窄，需与时俱进扩宽思路，陷在自己的世界里会让自己无法自拔。</p>
+        <p>努力并不是练习时间的简单积累。一个人的水平高低不能用工作多少年来衡量，而是真正的干货有多少。</p>
+    </fieldset>
+</fieldset>
+
+<div class="layui-collapse" lay-accordion="" lay-filter="questionContext" id="sfx">
+</div>
+
+<!-- 表单层 -->
+<div style="display: none; padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;min-height:500px;"
+     id="questionFrom">
+    <form class="layui-form" lay-filter="questionData" action="">
+        <div class="layui-form-item" style="display: none;">
+            <label class="layui-form-label">单行输入框</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">问题类型</label>
+                <div class="layui-input-inline" id="inputSelect">
+                    <select name="questionType">
+                        <option value="">直接选择或搜索选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">问题</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入所填问题" class="layui-textarea" name="question"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">答案</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入答案" class="layui-textarea" name="answer"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item" style="display: none">
+                <div class="layui-input-block" style="margin-left: 10px;">
+                    <button class="layui-btn"  lay-submit="" lay-filter="questionSubmit" id="sub">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary" id="res">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

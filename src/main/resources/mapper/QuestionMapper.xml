@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.review.dao.IQuestionMapper" >
+
+    <resultMap id="BaseResultMap" type="com.example.review.pojo.ReviewQuestion">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="question" property="question" jdbcType="VARCHAR"/>
+        <result column="questionType" property="questionType" jdbcType="VARCHAR"/>
+        <result column="answer" property="answer" jdbcType="VARCHAR"/>
+        <result column="lastAnswer" property="lastAnswer" jdbcType="VARCHAR"/>
+        <result column="creationDate" property="creationDate" jdbcType="TIMESTAMP"/>
+        <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="is_deleted" property="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,question,questionType,answer,lastAnswer,creationDate,modifyDate
+    </sql>
+
+    <select id="findAll"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from review_question
+    </select>
+
+    <select id="findAllById"  resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM review_question WHERE id = #{ID}
+    </select>
+
+    <select id="findType" resultMap="BaseResultMap">
+        SELECT q.questionType from review_question q group by q.questionType
+    </select>
+
+    <select id="init" resultMap="BaseResultMap">
+        SELECT	<include refid="Base_Column_List"/>
+        FROM review_question
+        <where>
+            <if test="isAll == true">
+               id >= ( SELECT floor( rand( ) * ( SELECT max( id ) FROM review_question ) ) )
+            </if>
+            <if test="keyWord != null and keyWord != '' ">
+                AND questionType = #{keyWord}
+            </if>
+        </where>
+        ORDER BY id  LIMIT 4;
+    </select>
+
+    <insert id="addQuestion" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+     insert into review_question (question,questionType,answer,lastAnswer) values
+     (#{question},#{questionType},#{answer},#{lastAnswer})
+    </insert>
+
+    <update id="updateQuestion" >
+        update review_question
+        <set >
+            <if test="question != null">
+                question =  #{question},
+            </if>
+            <if test="questionType != null">
+                questionType =  #{questionType},
+            </if>
+            <if test="answer != null">
+                answer =  #{answer},
+            </if>
+            <if test="lastAnswer != null">
+                lastAnswer =  #{lastAnswer},
+            </if>
+            <if test="modifyDate != null">
+                modifyDate =  #{modifyDate},
+            </if>
+        </set>
+        where is_delete = 0 AND id = #{id}
+    </update>
+
+    <update id="delQuestion" >
+        update review_question set is_delete = 1
+        <where>
+            <if test="id != null">
+                AND id =  #{id}
+            </if>
+        </where>
+    </update>
+
+</mapper>

@@ -1,0 +1,36 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: eureka-review
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/review?characterEncoding=utf-8&serverTimezone=GMT
+    username: root
+    password: 123456
+  jpa:
+    database: mysql
+  #resources:
+      #static-locations: classpath:static/,file:static/
+  # 前端页面热部署
+  thymeleaf:
+    cache: false
+
+devtools:
+  restart:
+    #热部署生效
+    enabled: true
+    #设置重启的目录
+    additional-paths: resources/**,static/**,templates/**
+    #该目录下的内容修改不重启
+    exclude: mapper/**
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.example.review.pojo
+#输出打印sql
+  #logging:
+    #level:
+  #com.example.review.dao : DEBUG
